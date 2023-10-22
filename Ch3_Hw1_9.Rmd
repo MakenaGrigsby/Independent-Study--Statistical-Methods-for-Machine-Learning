@@ -1,0 +1,84 @@
+---
+title: "Ch.3 Hw1 Problem 9"
+output: html_document
+date: "2023-09-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+install.packages("ISLR")
+library(ISLR)
+```
+
+```{r}
+head(Auto)
+```
+
+
+a.) Scatterplot Matrix
+```{r}
+pairs(Auto[,-which(names(Auto) == "name")])
+```
+
+
+b.) Compute the Matrix of Correlations 
+```{r}
+
+corr_matrix = cor(Auto[,-which(names(Auto) == "name")])
+print(corr_matrix)
+
+
+```
+
+
+c.) Multiple Linear Regression 
+```{r}
+# multiple linear regression model
+lm_model = lm(mpg ~ . - name, data = Auto)
+
+#Now lets display the summary 
+summary(lm_model)
+```
+i. Is there a relationship between the predictors and the re- sponse?
+ii. Which predictors appear to have a statistically significant relationship to the response?
+iii. What does the coefficient for the year variable suggest?
+
+
+d.) Diagnostic Plots 
+```{r}
+#diagnostic plots
+par(mfrow=c(2,2))
+plot(lm_model)
+
+```
+
+
+e.) Interaction Effects
+
+```{r}
+# Fit the model
+lm_interactions = lm(mpg ~ (.-name)^2, data = Auto)
+
+#Now let's display the summary 
+summary(lm_interactions)
+```
+
+f.) Transformation of Variables
+
+```{r}
+#  different transformations and fit the model
+lm_log <- lm(mpg ~ log(displacement) + log(horsepower) + log(weight), data = Auto)
+summary(lm_log)
+
+lm_sqrt <- lm(mpg ~ sqrt(displacement) + sqrt(horsepower) + sqrt(weight), data = Auto)
+summary(lm_sqrt)
+
+
+lm_square <- lm(mpg ~ I(displacement^2) + I(horsepower^2) + I(weight^2), data = Auto)
+summary(lm_square)
+
+```
+
