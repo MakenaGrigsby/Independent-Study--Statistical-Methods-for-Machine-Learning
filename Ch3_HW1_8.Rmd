@@ -1,0 +1,59 @@
+---
+title: "Untitled"
+output: html_document
+date: "2023-09-15"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Chapter 3:
+
+Problem #8
+
+
+```{r}
+#install.packages("ISLR")
+library(ISLR)
+
+```
+a.)
+
+
+```{r}
+head(Auto)
+
+```
+
+```{r}
+
+model <- lm(mpg ~ horsepower, data=Auto)
+summary(model)
+```
+
+
+iv. 
+
+```{r}
+predict(model, newdata=data.frame(horsepower=98), interval="confidence")
+predict(model, newdata=data.frame(horsepower=98), interval="prediction")
+
+```
+b.)
+```{r}
+
+plot(Auto$horsepower, Auto$mpg, xlab="Horsepower", ylab="MPG", main="MPG vs Horsepower")
+abline(model, col="red")
+```
+
+c.)
+
+```{r}
+
+cor(Auto$horsepower, Auto$mpg)
+
+par(mfrow=c(2,2))  
+plot(model)
+```
